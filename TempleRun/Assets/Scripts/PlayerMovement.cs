@@ -4,32 +4,46 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private bool turnLeft, turnRight, jump=false;
+    private bool turnLeft, turnRight, jump=false, moveLeft, moveRight;
+    private string previousKey = "";
     public float speed = 7.0f;
     public float jumpSpeed = 8.0f; // Adjust as needed
     private CharacterController myCharacterController;
     private Animator myAnimator;
-    // Start is called before the first frame update
+
     void Start()
     {
         myCharacterController = GetComponent<CharacterController>();
         myAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        turnLeft = Input.GetKeyDown(KeyCode.A);
-        turnRight = Input.GetKeyDown(KeyCode.D);
+        turnLeft = Input.GetKeyDown(KeyCode.LeftArrow);
+        turnRight = Input.GetKeyDown(KeyCode.RightArrow);
+
         jump = Input.GetKeyDown(KeyCode.Space);
+        moveLeft = Input.GetKeyDown(KeyCode.A);
+        moveRight = Input.GetKeyDown(KeyCode.D);
 
-        if (turnLeft)
+
+        // not letting the player turn back
+        if (turnLeft && previousKey != "left") {
             transform.Rotate(new Vector3(0f, -90f, 0f));
-        else if (turnRight)
+            previousKey = "left";
+        }
+        else if (turnRight && previousKey != "right") {
             transform.Rotate(new Vector3(0f, 90f, 0f));
-        else if (jump)
+            previousKey = "right";
+        }
+        else if (jump) {
             myAnimator.Play("Jump");
-
+            // code for jumping
+        }
+        /*else if (moveLeft)
+            transform.position += new Vector3(-1f, 0f, 0f);
+        else if (moveRight)
+            transform.position += new Vector3(1f, 0f, 0f);*/
         myCharacterController.SimpleMove(new Vector3(0f,0f,0f));
         myCharacterController.Move(transform.forward * speed * Time.deltaTime);
     }

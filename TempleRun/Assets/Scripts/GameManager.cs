@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     }
     void ResumeGame(){
         Time.timeScale = 1;
+        gameOver = false;
     }
     void Update()
     {
@@ -66,5 +67,6 @@ public class GameManager : MonoBehaviour
     public void Restart(){
         //this should be replaced with main menu scene later
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        ResumeGame();
     }
 }
