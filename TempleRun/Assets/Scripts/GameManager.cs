@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
     {
         currentMoney += amount;
         moneyText.text = "Money: " + currentMoney;
-        UpdateScore(amount * 5);
+        //UpdateScore(amount * 5);
     }
 
     public void UpdateScore(int amount)
@@ -42,6 +43,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        UpdateScore((int)(Time.deltaTime * 50));
+        UpdateScore((int)(Time.deltaTime * 100));
     }
 }

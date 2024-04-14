@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraTrail : MonoBehaviour
 {
-    public Transform target;
+    /*public Transform target;
     public float trailDistance = 5.0f;
     public float heightOffset = 3.0f;
     public float cameraDelay = 0.02f;
@@ -18,5 +18,5 @@ public class CameraTrail : MonoBehaviour
         transform.position += (followPos - transform.position) * cameraDelay;
 
         transform.LookAt(target.transform);
-    }
+    }*/
 }
