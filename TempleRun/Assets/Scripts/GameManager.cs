@@ -3,17 +3,24 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     private int currentMoney = 0;
-    private int currentScore = 0;
-    private int highScore = 0;
-
+    private float currentScore = 0f;
+    private float highScore = 0f;
+    private bool gameOver = false;
     public Text moneyText;
     public Text scoreText;
+    [SerializeField]
+    private GameObject gameOverCanvas;
     // public Text highScoreText;
     public static GameManager instance;
+
+    public void setGameOver(bool val){
+        gameOver = val;
+    }
 
     private void Awake()
     {
@@ -28,21 +35,36 @@ public class GameManager : MonoBehaviour
         //UpdateScore(amount * 5);
     }
 
-    public void UpdateScore(int amount)
+    public void UpdateScore(float amount)
     {
         currentScore += amount;
         if(currentScore > highScore)
             highScore = currentScore;
-        scoreText.text = "Score: " + currentScore.ToString();// + " High Score: " + highScore.ToString();
+        scoreText.text = "Score: " + (int)currentScore;// + " High Score: " + highScore.ToString();
     }
 
     void Start()
     {
         
     }
-
+    void PauseGame(){
+        Time.timeScale = 0;
+    }
+    void ResumeGame(){
+        Time.timeScale = 1;
+    }
     void Update()
     {
-        UpdateScore((int)(Time.deltaTime * 100));
+        if(gameOver){
+            PauseGame();
+            gameOverCanvas.SetActive(true);
+        }
+    }
+    void FixedUpdate(){
+        UpdateScore(10 * Time.deltaTime);
+    }
+    public void Restart(){
+        //this should be replaced with main menu scene later
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

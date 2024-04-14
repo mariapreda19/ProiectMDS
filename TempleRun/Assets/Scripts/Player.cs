@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
         if(other.gameObject.GetComponent<Coin>() != null)
         {
             money++;
-            Debug.Log(money);
+            //Debug.Log(money);
             GameManager.instance.UpdateMoney(1);
         }
     }
@@ -33,6 +33,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        checkDeath();
+    }
+    void checkDeath(){
+        if(transform.position.y <= 1.5f){
+            GameManager.instance.setGameOver(true);
+        }
+        //You can add multiple death causes here...
     }
 }

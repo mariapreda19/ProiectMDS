@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SpawnTile : MonoBehaviour
 {
+    //make these private and [SerializeField] 
     public GameObject tileToSpawn;
     public GameObject referenceObject;
     public GameObject player;
