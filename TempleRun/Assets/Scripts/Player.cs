@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
         {
             money++;
             Debug.Log(money);
+            GameManager.instance.UpdateMoney(1);
         }
     }
 
