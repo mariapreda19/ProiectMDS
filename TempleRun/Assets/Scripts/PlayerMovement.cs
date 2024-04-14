@@ -6,7 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     private bool turnLeft, turnRight, jump=false, moveLeft, moveRight;
     private string previousKey = "";
-    public float speed = 7.0f;
+    private float horizontalInput;
+    private float runningSpeed = 7.0f;
+    private float movingSpeed = 10.0f;
     public float jumpSpeed = 8.0f; // Adjust as needed
     private CharacterController myCharacterController;
     private Animator myAnimator;
@@ -17,16 +19,8 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        turnLeft = Input.GetKeyDown(KeyCode.LeftArrow);
-        turnRight = Input.GetKeyDown(KeyCode.RightArrow);
-
-        jump = Input.GetKeyDown(KeyCode.Space);
-        moveLeft = Input.GetKeyDown(KeyCode.A);
-        moveRight = Input.GetKeyDown(KeyCode.D);
-
-
         // not letting the player turn back
         if (turnLeft && previousKey != "left") {
             transform.Rotate(new Vector3(0f, -90f, 0f));
@@ -40,12 +34,24 @@ public class PlayerMovement : MonoBehaviour
             myAnimator.Play("Jump");
             // code for jumping
         }
-        /*else if (moveLeft)
-            transform.position += new Vector3(-1f, 0f, 0f);
-        else if (moveRight)
-            transform.position += new Vector3(1f, 0f, 0f);*/
         myCharacterController.SimpleMove(new Vector3(0f,0f,0f));
-        myCharacterController.Move(transform.forward * speed * Time.deltaTime);
+        //myCharacterController.Move(speed * Time.deltaTime * (transform.forward + movement));
+
+        Vector3 forwardMovement = Time.deltaTime * runningSpeed * transform.forward;
+        Vector3 horizontalMovement = Time.deltaTime * movingSpeed * horizontalInput * transform.right;
+        myCharacterController.Move(forwardMovement + horizontalMovement);
+
+    }
+
+    void Update()
+    {
+        // discrete movement
+        turnLeft = Input.GetKeyDown(KeyCode.A);
+        turnRight = Input.GetKeyDown(KeyCode.D);
+
+        jump = Input.GetKeyDown(KeyCode.Space);
+        // continuous movement
+        horizontalInput = Input.GetAxis("Horizontal");
     }
     //trb implemnetat jumpul si modificat distanta dintre tiles.
     
