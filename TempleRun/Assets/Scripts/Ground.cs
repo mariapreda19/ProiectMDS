@@ -11,7 +11,7 @@ public class SpawnTile : MonoBehaviour
     public GameObject groundToSpawn;
 
 
-    public float maxDistanceFromPlayer = 100f;
+    public float maxDistanceFromPlayer = 0.5f;
     public float distanceBetweenTiles = 5.0f;
     public float randomValue = 0.7f;
 
