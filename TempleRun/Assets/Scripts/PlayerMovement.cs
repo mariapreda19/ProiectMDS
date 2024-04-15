@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private bool turnLeft, turnRight, jump=false, moveLeft, moveRight;
+    private bool turnLeft, turnRight, roll = false, jump=false, moveLeft, moveRight;
     private string previousKey = "";
     private float horizontalInput;
     private float runningSpeed = 7.0f;
@@ -34,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
             myAnimator.Play("Jump");
             // code for jumping
         }
+        else if (roll) {
+            myAnimator.Play("Roll");
+        }
         myCharacterController.SimpleMove(new Vector3(0f,0f,0f));
         //myCharacterController.Move(speed * Time.deltaTime * (transform.forward + movement));
 
@@ -50,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
         turnRight = Input.GetKeyDown(KeyCode.D);
 
         jump = Input.GetKeyDown(KeyCode.Space);
+        roll = Input.GetKeyDown(KeyCode.R);
+        
         // continuous movement
         horizontalInput = Input.GetAxis("Horizontal");
     }
