@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class SpawnTile : MonoBehaviour
 {
-    //make these private and [SerializeField] 
     public GameObject tileToSpawn;
     public GameObject referenceObject;
     public GameObject player;
     public GameObject groundToSpawn;
-
+    public GameObject coinPrefab;
 
     public float maxDistanceFromPlayer = 0.5f;
     public float distanceBetweenTiles = 5.0f;
@@ -19,116 +18,80 @@ public class SpawnTile : MonoBehaviour
     private List<GameObject> tiles = new List<GameObject>();
     private Vector3 previousTilePosition;
     private Vector3 direction, mainDirection = new Vector3(0, 0, 1), otherDirection = new Vector3(1, 0, 0);
+    private float coinSpawnRate = 0.5f;
 
     void Start()
     {
         previousTilePosition = referenceObject.transform.position;
-
     }
 
     void Update()
     {
-        if (Random.value < randomValue)
-            direction = mainDirection;
-        else
+        if (Vector3.Distance(player.transform.position, previousTilePosition) <= maxDistanceFromPlayer * 2)
         {
-            Vector3 temp = direction;
-            direction = otherDirection;
-            mainDirection = direction;
-            otherDirection = temp;
-        }
-        if (Random.value < randomValue)
-        {
-            Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
-            if (Vector3.Distance(player.transform.position, spawnPos) <= maxDistanceFromPlayer * 2)
+            float random = Random.Range(0.0f, 1.0f);
+            if (random >= randomValue)
             {
-                GameObject temp = Instantiate(tileToSpawn, spawnPos, Quaternion.Euler(0, 0, 0));
-                tiles.Add(temp);
-                SpawnCoins(temp.GetComponent<Collider>());
-
-                previousTilePosition = spawnPos;
-
+                ChangeDirection();
             }
 
-        }
-        else
-        {
-            Vector3 spawnPos = previousTilePosition + 4f * direction;
-            if (Vector3.Distance(player.transform.position, spawnPos) <= maxDistanceFromPlayer * 2)
-            {
-
-                GameObject temp = Instantiate(groundToSpawn, spawnPos, Quaternion.Euler(0, 0, 0));
-                tiles.Add(temp);
-                SpawnCoins(temp.GetComponent<Collider>());
-                previousTilePosition = spawnPos;
-
-            }
-            Vector3 spawnPos2 = previousTilePosition + 4f * direction;
-            if (Vector3.Distance(player.transform.position, spawnPos2) <= maxDistanceFromPlayer * 2)
-            {
-
-                GameObject temp = Instantiate(groundToSpawn, spawnPos2, Quaternion.Euler(0, 0, 0));
-                tiles.Add(temp);
-                SpawnCoins(temp.GetComponent<Collider>());
-                previousTilePosition = spawnPos2;
-
-            }
-            Vector3 spawnPos3 = previousTilePosition + 4f * direction;
-            if (Vector3.Distance(player.transform.position, spawnPos3) <= maxDistanceFromPlayer * 2)
-            {
-
-                GameObject temp = Instantiate(groundToSpawn, spawnPos3, Quaternion.Euler(0, 0, 0));
-                tiles.Add(temp);
-                SpawnCoins(temp.GetComponent<Collider>());
-                previousTilePosition = spawnPos3;
-
-            }
-            Vector3 spawnPos4 = previousTilePosition + 4f * direction;
-            if (Vector3.Distance(player.transform.position, spawnPos4) <= maxDistanceFromPlayer * 2)
-            {
-
-                GameObject temp = Instantiate(groundToSpawn, spawnPos4, Quaternion.Euler(0, 0, 0));
-                tiles.Add(temp);
-                SpawnCoins(temp.GetComponent<Collider>());
-                previousTilePosition = spawnPos4;
-
-            }
-        }
-
-        for (int i = 0; i < tiles.Count; i++)
-        {
-            //Verification of distance was created using ChatGPT's help.
-            if (Vector3.Distance(player.transform.position, tiles[i].transform.position) > maxDistanceFromPlayer * 2)
-            {
-                Destroy(tiles[i]);
-                tiles.RemoveAt(i);
-            }
+            SpawnTileAndManageCoins();
+            CleanUpTiles();
         }
     }
 
-    public GameObject coinPrefab;
-
-    void SpawnCoins(Collider collider)
+    private void ChangeDirection()
     {
-        for (int i = 0; i < Random.Range(1, 3); i++)
+        Vector3 temp = mainDirection;
+        mainDirection = otherDirection;
+        otherDirection = temp;
+        direction = mainDirection;
+    }
+
+    private void SpawnTileAndManageCoins()
+    {
+            Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
+            GameObject temp = Instantiate(tileToSpawn, spawnPos, Quaternion.identity);
+            tiles.Add(temp);
+            SpawnCoins(temp.GetComponent<Collider>());
+            previousTilePosition = spawnPos;
+    }
+
+    private void SpawnCoins(Collider collider)
+    {
+        float choice = Random.Range(0.0f, 1.0f);
+        if (choice >= coinSpawnRate)
         {
-            GameObject temp = Instantiate(coinPrefab, collider.GetComponent<Transform>());
-            temp.transform.position = GetRandomPointInCollider(collider);
+            for (int i = 0; i < Random.Range(1, 3); i++)
+            {
+                GameObject temp = Instantiate(coinPrefab, collider.transform);
+                temp.transform.position = GetRandomPointInCollider(collider);
+            }
         }
     }
 
-    Vector3 GetRandomPointInCollider(Collider collider)
+    private Vector3 GetRandomPointInCollider(Collider collider)
     {
         Vector3 point = new Vector3(
             Random.Range(collider.bounds.min.x, collider.bounds.max.x),
-            Random.Range(collider.bounds.min.y, collider.bounds.max.y),
+            5,
             Random.Range(collider.bounds.min.z, collider.bounds.max.z)
         );
-        if (point != collider.ClosestPoint(point))
-        {
-            point = GetRandomPointInCollider(collider);
-        }
-        point.y = 5;
         return point;
+    }
+
+    private void CleanUpTiles()
+    {
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            
+            if (Vector3.Distance(player.transform.position, tiles[i].transform.position) > maxDistanceFromPlayer)
+            {
+                Destroy(tiles[i]);
+                tiles.RemoveAt(i);
+                i--;
+            }
+            else break;
+        }
     }
 }
