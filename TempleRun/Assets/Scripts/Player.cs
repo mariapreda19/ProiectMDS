@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    
     private int money = 0;
 
     public void updateMoney(int ammount)

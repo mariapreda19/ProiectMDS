@@ -4,6 +4,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -15,8 +17,47 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     [SerializeField]
     private GameObject gameOverCanvas;
-    // public Text highScoreText;
+    [SerializeField]
+    private GameObject mainMenuCanvas;
+
     public static GameManager instance;
+    [SerializeField]
+    private TMP_Dropdown DropDownSong;
+    [SerializeField]
+    private AudioSource Song;
+    [SerializeField]
+    private AudioClip[] Clips;
+
+    [SerializeField]
+    private TMP_Dropdown DropDownSkin;
+
+    public void setSong(){
+        string song_name = DropDownSong.options[DropDownSong.value].text;
+        if(song_name == "Dan Spataru - Drumurile"){
+            Song.clip = Clips[0];
+        }
+        else if (song_name == "Stereo Love"){
+            Song.clip = Clips[2];
+        }
+        else if (song_name == "Generic - Banii n-aduc fericirea"){
+            Song.clip = Clips[1];
+        }
+        else{
+            Song.clip = Clips[0];
+        }
+    }
+    public void setSking(){
+        string skin_name = DropDownSkin.options[DropDownSkin.value].text;
+        if(skin_name == "PSN"){
+        }
+        else if(skin_name == "MISSES BLACK"){
+            
+        }
+        else if (skin_name == "THE PEACOCK"){
+            
+        }
+    }
+
 
     public void setGameOver(bool val){
         gameOver = val;
@@ -45,12 +86,15 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        PauseGame();
+        Song.clip = Clips[0];
+        mainMenuCanvas.SetActive(true);
     }
     void PauseGame(){
         Time.timeScale = 0;
     }
     void ResumeGame(){
+        Song.Play();
         Time.timeScale = 1;
         gameOver = false;
     }
@@ -64,9 +108,13 @@ public class GameManager : MonoBehaviour
     void FixedUpdate(){
         UpdateScore(10 * Time.deltaTime);
     }
+    public void StartGame(){
+        mainMenuCanvas.SetActive(false);
+        SceneManager.LoadScene("SampleScene*");
+        ResumeGame();
+    }
     public void Restart(){
-        //this should be replaced with main menu scene later
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("SampleScene");
         ResumeGame();
     }
 }
