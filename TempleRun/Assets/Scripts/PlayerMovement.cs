@@ -44,10 +44,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 horizontalMovement = Time.deltaTime * movingSpeed * horizontalInput * transform.right;
         myCharacterController.Move(forwardMovement + horizontalMovement);
 
-    }
-
-    void Update()
-    {
         // discrete movement
         turnLeft = Input.GetKeyDown(KeyCode.F);
         turnRight = Input.GetKeyDown(KeyCode.H);
