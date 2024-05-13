@@ -22,11 +22,11 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         // not letting the player turn back
-        if (turnLeft && previousKey != "left") {
+        if (turnLeft ) {
             transform.Rotate(new Vector3(0f, -90f, 0f));
             previousKey = "left";
         }
-        else if (turnRight && previousKey != "right") {
+        else if (turnRight ) {
             transform.Rotate(new Vector3(0f, 90f, 0f));
             previousKey = "right";
         }
@@ -49,8 +49,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // discrete movement
-        turnLeft = Input.GetKeyDown(KeyCode.A);
-        turnRight = Input.GetKeyDown(KeyCode.D);
+        turnLeft = Input.GetKeyDown(KeyCode.F);
+        turnRight = Input.GetKeyDown(KeyCode.H);
 
         jump = Input.GetKeyDown(KeyCode.Space);
         roll = Input.GetKeyDown(KeyCode.R);
