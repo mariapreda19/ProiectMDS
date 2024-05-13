@@ -32,19 +32,7 @@ public class GameManager : MonoBehaviour
     private TMP_Dropdown DropDownSkin;
 
     public void setSong(){
-        string song_name = DropDownSong.options[DropDownSong.value].text;
-        if(song_name == "Dan Spataru - Drumurile"){
-            Song.clip = Clips[0];
-        }
-        else if (song_name == "Stereo Love"){
-            Song.clip = Clips[2];
-        }
-        else if (song_name == "Generic - Banii n-aduc fericirea"){
-            Song.clip = Clips[1];
-        }
-        else{
-            Song.clip = Clips[0];
-        }
+        Song.clip = Clips[DropDownSong.value];
     }
     public void setSking(){
         string skin_name = DropDownSkin.options[DropDownSkin.value].text;
@@ -72,16 +60,30 @@ public class GameManager : MonoBehaviour
     public void UpdateMoney(int amount)
     {
         currentMoney += amount;
-        moneyText.text = "Money: " + currentMoney;
+        moneyText.text = "Money: " + Player.getMoney().ToString();
         //UpdateScore(amount * 5);
     }
 
     public void UpdateScore(float amount)
     {
         currentScore += amount;
+        Player.UpdateScore(amount);
         if(currentScore > highScore)
             highScore = currentScore;
-        scoreText.text = "Score: " + (int)currentScore;// + " High Score: " + highScore.ToString();
+        //scoreText.text = "Score: " + (int)currentScore;// + " High Score: " + highScore.ToString();
+        scoreText.text = "Score: " + (int)Player.getScore();
+    }
+
+    public void BuyLife()
+    {
+        if(Player.getMoney() >= 3)
+        {
+            UpdateMoney(-3);
+            Player.UpdateMoney(-3);
+            gameOverCanvas.SetActive(false);
+            SceneManager.LoadScene("SampleScene");
+            ResumeGame();
+        }
     }
 
     void Start()
@@ -89,6 +91,9 @@ public class GameManager : MonoBehaviour
         PauseGame();
         Song.clip = Clips[0];
         mainMenuCanvas.SetActive(true);
+        UpdateMoney(0);
+
+        //Player.UpdateScore(-Player.getScore());
     }
     void PauseGame(){
         Time.timeScale = 0;
@@ -112,9 +117,11 @@ public class GameManager : MonoBehaviour
         mainMenuCanvas.SetActive(false);
         SceneManager.LoadScene("SampleScene*");
         ResumeGame();
+        //Player.UpdateScore(-Player.getScore());
     }
     public void Restart(){
         SceneManager.LoadScene("SampleScene");
         ResumeGame();
+        Player.UpdateScore(-Player.getScore());
     }
 }

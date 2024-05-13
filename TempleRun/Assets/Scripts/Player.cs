@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
-    private int money = 0;
+    private static int money = 0;
+    private static float score = 0;
 
-    public void updateMoney(int ammount)
-    {
-        money += ammount;
-    }
-    public int getMoney()
+    public static int getMoney()
     {
         return money;
+    }
+    public static float getScore()
+    {
+        return score;
+    }
+
+    public static void UpdateMoney(int amount) {
+        money += amount;
+    }
+    public static void UpdateScore(float amount) {
+        score += amount;
     }
     private void OnTriggerEnter(Collider other)
     {
