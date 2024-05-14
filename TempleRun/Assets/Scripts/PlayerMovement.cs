@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         bool isGrounded = myCharacterController.isGrounded;
 
