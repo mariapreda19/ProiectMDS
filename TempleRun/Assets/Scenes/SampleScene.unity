@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1030,11 +1030,12 @@ MonoBehaviour:
   tileToSpawn: {fileID: 526570746}
   referenceObject: {fileID: 567002992}
   player: {fileID: 1310942186}
-  groundToSpawn: {fileID: 7194881902304347072, guid: 08badb1c1bacde54997ba9d14b219727, type: 3}
+  groundToSpawn: {fileID: 0}
+  coinPrefab: {fileID: 1011108785562528787, guid: a892e37565e9d814ebd07bc458c62c7b, type: 3}
+  obstaclePrefab: {fileID: 0}
   maxDistanceFromPlayer: 100
   distanceBetweenTiles: 5
   randomValue: 0.7
-  coinPrefab: {fileID: 1011108785562528787, guid: a892e37565e9d814ebd07bc458c62c7b, type: 3}
 --- !u!114 &963194232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1282,8 +1283,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bda8de232e6ea489c5516bdf9e9f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
   jumpSpeed: 8
+  gravity: 9.81
+  rollSpeed: 15
+  rollDuration: 0.5
 --- !u!143 &1310942189
 CharacterController:
   m_ObjectHideFlags: 0

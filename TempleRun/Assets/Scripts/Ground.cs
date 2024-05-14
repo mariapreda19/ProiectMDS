@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnTile : MonoBehaviour
@@ -10,6 +9,7 @@ public class SpawnTile : MonoBehaviour
     public GameObject player;
     public GameObject groundToSpawn;
     public GameObject coinPrefab;
+    public GameObject obstaclePrefab;
 
     public float maxDistanceFromPlayer = 0.5f;
     public float distanceBetweenTiles = 5.0f;
@@ -19,6 +19,7 @@ public class SpawnTile : MonoBehaviour
     private Vector3 previousTilePosition;
     private Vector3 direction, mainDirection = new Vector3(0, 0, 1), otherDirection = new Vector3(1, 0, 0);
     private float coinSpawnRate = 0.5f;
+    private float obstacleSpawnRate = 0.1f;
 
     void Start()
     {
@@ -50,11 +51,15 @@ public class SpawnTile : MonoBehaviour
 
     private void SpawnTileAndManageCoins()
     {
-            Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
-            GameObject temp = Instantiate(tileToSpawn, spawnPos, Quaternion.identity);
-            tiles.Add(temp);
-            SpawnCoins(temp.GetComponent<Collider>());
-            previousTilePosition = spawnPos;
+        Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
+        GameObject temp = Instantiate(tileToSpawn, spawnPos, Quaternion.identity);
+        tiles.Add(temp);
+        SpawnCoins(temp.GetComponent<Collider>());
+        if (Random.Range(0.0f, 1.0f) <= obstacleSpawnRate)
+        {
+            SpawnObstacle(temp.GetComponent<Collider>());
+        }
+        previousTilePosition = spawnPos;
     }
 
     private void SpawnCoins(Collider collider)
@@ -67,6 +72,16 @@ public class SpawnTile : MonoBehaviour
                 GameObject temp = Instantiate(coinPrefab, collider.transform);
                 temp.transform.position = GetRandomPointInCollider(collider);
             }
+        }
+    }
+
+    private void SpawnObstacle(Collider collider)
+    {
+        GameObject temp = Instantiate(obstaclePrefab, collider.transform);
+        temp.transform.position = GetRandomPointInCollider(collider);
+        if (Random.Range(0.0f, 1.0f) <= 0.5f) // 50% chance for rotation
+        {
+            temp.transform.Rotate(0, 90, 0); // Rotate by 90 degrees around Y axis
         }
     }
 
@@ -84,7 +99,6 @@ public class SpawnTile : MonoBehaviour
     {
         for (int i = 0; i < tiles.Count; i++)
         {
-            
             if (Vector3.Distance(player.transform.position, tiles[i].transform.position) > maxDistanceFromPlayer)
             {
                 Destroy(tiles[i]);

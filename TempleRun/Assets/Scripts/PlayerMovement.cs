@@ -9,9 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
     private float runningSpeed = 7.0f;
     private float movingSpeed = 10.0f;
-    public float jumpSpeed = 8.0f; // Adjust as needed
+    public float jumpSpeed = 10.0f; // Adjust as needed
     public float gravity = 9.81f;
-    public float rollSpeed = 15.0f;
+    public float rollSpeed = 8.0f;
     public float rollDuration = 0.5f;
     private bool isRolling = false;
     private float rollTimer;

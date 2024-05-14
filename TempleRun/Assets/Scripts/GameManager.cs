@@ -60,10 +60,9 @@ public class GameManager : MonoBehaviour
             PauseGame();
             gameOverCanvas.SetActive(true);
         }
-    }
-    void FixedUpdate(){
         UpdateScore(10 * Time.deltaTime);
     }
+    
     public void Restart(){
         //this should be replaced with main menu scene later
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
