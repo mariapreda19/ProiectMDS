@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private bool gameOver = false;
     public Text moneyText;
     public Text scoreText;
+    public Text playerNameText;
     [SerializeField]
     private GameObject gameOverCanvas;
     [SerializeField]
@@ -31,21 +32,51 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TMP_Dropdown DropDownSkin;
 
+    [SerializeField]
+    private TMP_Dropdown DropDownDifficulty;
+
+    [SerializeField]
+    private float[] runningSpeeds;
+
+    private float runningSpeed = 7;
+    [SerializeField]
+    private PlayerMovement movement;
+
+
+    [SerializeField]
+    private Mesh playerMesh;
+
+    [SerializeField]
+    private Mesh[] Skins;
+
+    [SerializeField]
+    private TMP_InputField userName;
+    
+
     public void setSong(){
         Song.clip = Clips[DropDownSong.value];
+        Song.volume = 0.1f;
     }
-    public void setSking(){
-        string skin_name = DropDownSkin.options[DropDownSkin.value].text;
-        if(skin_name == "PSN"){
-        }
-        else if(skin_name == "MISSES BLACK"){
-            
-        }
-        else if (skin_name == "THE PEACOCK"){
-            
-        }
+    public void setSkin(){
+        playerMesh = Skins[DropDownSkin.value];
     }
+    public void setRunningSpeed(){
+        runningSpeed = runningSpeeds[DropDownDifficulty.value];
+        //Debug.Log("Speed changed to " + runningSpeed);
+        movement.setSpeed(runningSpeed);
+        if(DropDownDifficulty.value == 0){
+            Song.pitch = 1.0f;
+        }
+        else if (DropDownDifficulty.value == 1){
+            Song.pitch = 1.25f;
+        }
+        else{
+            Song.pitch = 1.5f;
+        }
+        Song.volume = 0.1f;
 
+
+    }
 
     public void setGameOver(bool val){
         gameOver = val;
@@ -90,8 +121,10 @@ public class GameManager : MonoBehaviour
     {
         PauseGame();
         Song.clip = Clips[0];
+        Song.volume = 0.1f;
         mainMenuCanvas.SetActive(true);
         UpdateMoney(0);
+        //playerMesh = Skins[1];
 
         //Player.UpdateScore(-Player.getScore());
     }
@@ -114,12 +147,16 @@ public class GameManager : MonoBehaviour
         UpdateScore(10 * Time.deltaTime);
     }
     public void StartGame(){
+        playerNameText.text = (string)userName.text;
+        Player.setName((string)playerNameText.text);
         mainMenuCanvas.SetActive(false);
         SceneManager.LoadScene("SampleScene*");
         ResumeGame();
         //Player.UpdateScore(-Player.getScore());
     }
     public void Restart(){
+        playerNameText.text = (string)userName.text;
+        Player.setName((string)playerNameText.text);
         SceneManager.LoadScene("SampleScene");
         ResumeGame();
         Player.UpdateScore(-Player.getScore());

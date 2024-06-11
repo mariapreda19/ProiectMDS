@@ -4,8 +4,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+
     private static int money = 0;
     private static float score = 0;
+    private static string playerName = "New Player";
+
+    public static void setName(string val){
+        Debug.Log(val);
+        if(val != "")
+            playerName = val;
+    }
+
+    public static string getName(){
+        return playerName;
+    }
 
     public static int getMoney()
     {

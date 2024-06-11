@@ -13,14 +13,27 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController myCharacterController;
     private Animator myAnimator;
 
+    public void setSpeed(float val){
+        this.runningSpeed = val;
+    }
+
     void Start()
     {
         myCharacterController = GetComponent<CharacterController>();
         myAnimator = GetComponent<Animator>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        // discrete movement
+        turnLeft = Input.GetKeyDown(KeyCode.A);
+        turnRight = Input.GetKeyDown(KeyCode.D);
+
+        jump = Input.GetKeyDown(KeyCode.Space);
+        roll = Input.GetKeyDown(KeyCode.R);
+        
+        // continuous movement
+        horizontalInput = Input.GetAxis("Horizontal");
         // not letting the player turn back
         if (turnLeft && previousKey != "left") {
             transform.Rotate(new Vector3(0f, -90f, 0f));
@@ -46,18 +59,5 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        // discrete movement
-        turnLeft = Input.GetKeyDown(KeyCode.A);
-        turnRight = Input.GetKeyDown(KeyCode.D);
-
-        jump = Input.GetKeyDown(KeyCode.Space);
-        roll = Input.GetKeyDown(KeyCode.R);
-        
-        // continuous movement
-        horizontalInput = Input.GetAxis("Horizontal");
-    }
-    //trb implemnetat jumpul si modificat distanta dintre tiles.
     
 }

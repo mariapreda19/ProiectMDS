@@ -7,6 +7,7 @@ public class SpawnTile : MonoBehaviour
 {
     public GameObject tileToSpawn;
     public GameObject referenceObject;
+    [SerializeField]
     public GameObject player;
     public GameObject groundToSpawn;
     public GameObject coinPrefab;
@@ -19,6 +20,7 @@ public class SpawnTile : MonoBehaviour
     private Vector3 previousTilePosition;
     private Vector3 direction, mainDirection = new Vector3(0, 0, 1), otherDirection = new Vector3(1, 0, 0);
     private float coinSpawnRate = 0.5f;
+
 
     void Start()
     {
