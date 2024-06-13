@@ -3623,6 +3623,8 @@ MonoBehaviour:
   player: {fileID: 1310942186}
   groundToSpawn: {fileID: 7194881902304347072, guid: 08badb1c1bacde54997ba9d14b219727, type: 3}
   coinPrefab: {fileID: 1011108785562528787, guid: a892e37565e9d814ebd07bc458c62c7b, type: 3}
+  PowerUpScorePrefab: {fileID: 5543421117130291706, guid: 0dfb7952e79e53043a2f14c3ab31c3c5, type: 3}
+  SlowDownPrefab: {fileID: 1971872150}
   maxDistanceFromPlayer: 100
   distanceBetweenTiles: 5
   randomValue: 0.7
@@ -4744,6 +4746,95 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210670751}
   m_CullTransparentMesh: 1
+--- !u!1001 &1223450464
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -4513986054726557208, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 1310942188}
+    - target: {fileID: -4513986054726557208, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1310942188}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537353393580959809, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894692529721448490, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544484456100544264, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_Name
+      value: SlowDownPowerUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544484456100544264, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
 --- !u!1 &1280157463
 GameObject:
   m_ObjectHideFlags: 0
@@ -6775,6 +6866,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1310942191}
   m_SourcePrefab: {fileID: 100100000, guid: 4678742e7ccdefa4d83447be11352ae6, type: 3}
+--- !u!1 &1971872150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6544484456100544264, guid: e61ee8b9e158f204e8ee581a827dff5e, type: 3}
+  m_PrefabInstance: {fileID: 1223450464}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1974129403
 GameObject:
   m_ObjectHideFlags: 0
@@ -7335,3 +7431,4 @@ SceneRoots:
   - {fileID: 1570273302}
   - {fileID: 231287883}
   - {fileID: 243199785}
+  - {fileID: 1223450464}

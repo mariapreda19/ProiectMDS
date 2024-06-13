@@ -11,6 +11,11 @@ public class SpawnTile : MonoBehaviour
     public GameObject player;
     public GameObject groundToSpawn;
     public GameObject coinPrefab;
+    public GameObject PowerUpScorePrefab;
+    private float powerUpScoreSpawnRate = 0.05f;
+    
+    public GameObject SlowDownPrefab;
+    private float SlowDownSpawnRate = 0.05f;
 
     public float maxDistanceFromPlayer = 0.5f;
     public float distanceBetweenTiles = 5.0f;
@@ -37,7 +42,7 @@ public class SpawnTile : MonoBehaviour
                 ChangeDirection();
             }
 
-            SpawnTileAndManageCoins();
+            SpawnTileAndManageCoinsAndPowerUps();
             CleanUpTiles();
         }
     }
@@ -50,13 +55,34 @@ public class SpawnTile : MonoBehaviour
         direction = mainDirection;
     }
 
-    private void SpawnTileAndManageCoins()
+    private void SpawnTileAndManageCoinsAndPowerUps()
     {
             Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
             GameObject temp = Instantiate(tileToSpawn, spawnPos, Quaternion.identity);
             tiles.Add(temp);
             SpawnCoins(temp.GetComponent<Collider>());
+            SpawnScorePowerUp(temp.GetComponent<Collider>());
+            SpawnSlowDown(temp.GetComponent<Collider>());
             previousTilePosition = spawnPos;
+    }
+
+    private void SpawnSlowDown(Collider collider)
+    {
+        float choice = Random.Range(0.0f, 1.0f);
+        if (choice <= SlowDownSpawnRate)
+        {
+            GameObject temp = Instantiate(SlowDownPrefab, collider.transform);
+            temp.transform.position = GetRandomPointInCollider(collider);
+        }
+    }
+    private void SpawnScorePowerUp(Collider collider)
+    {
+        float choice = Random.Range(0.0f, 1.0f);
+        if (choice <= powerUpScoreSpawnRate)
+        {
+            GameObject temp = Instantiate(PowerUpScorePrefab, collider.transform);
+            temp.transform.position = GetRandomPointInCollider(collider);
+        }
     }
 
     private void SpawnCoins(Collider collider)

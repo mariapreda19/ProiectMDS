@@ -360,6 +360,8 @@
 "Assets/Scripts/Ground.cs"
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/ScorePowerUp.cs"
+"Assets/Scripts/SlowDownPowerUp.cs"
 -langversion:9.0
 
 /deterministic

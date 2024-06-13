@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private static string playerName = "New Player";
 
     public static void setName(string val){
-        Debug.Log(val);
+        //Debug.Log(val);
         if(val != "")
             playerName = val;
     }
@@ -42,6 +42,10 @@ public class Player : MonoBehaviour
             money++;
             //Debug.Log(money);
             GameManager.instance.UpdateMoney(1);
+        }
+        if(other.gameObject.GetComponent<ScorePowerUp>() != null)
+        {
+            GameManager.instance.UpdateScore(200);
         }
     }
 
