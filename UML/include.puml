@@ -1,0 +1,51 @@
+@startuml
+class Player {
+    + updateMoney(ammount:int) : void
+    + getMoney() : int
+    Start() : void
+    Update() : void
+    checkDeath() : void
+}
+MonoBehaviour <|-- Player
+class PlayerMovement {
+    + jumpSpeed : float = 8.0f
+    Start() : void
+    FixedUpdate() : void
+    Update() : void
+}
+MonoBehaviour <|-- PlayerMovement
+class GameManager {
+    + setGameOver(val:bool) : void
+    + UpdateMoney(amount:int) : void
+    + UpdateScore(amount:float) : void
+    Start() : void
+    PauseGame() : void
+    ResumeGame() : void
+    Update() : void
+    FixedUpdate() : void
+    + Restart() : void
+}
+MonoBehaviour <|-- GameManager
+GameManager --> "moneyText" Text
+GameManager --> "scoreText" Text
+GameManager --> "instance" GameManager
+class Coin {
+    + turnSpeed : float = 90f
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- Coin
+class SpawnTile {
+    + maxDistanceFromPlayer : float = 0.5f
+    + distanceBetweenTiles : float = 5.0f
+    + randomValue : float = 0.7f
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- SpawnTile
+SpawnTile --> "tileToSpawn" GameObject
+SpawnTile --> "referenceObject" GameObject
+SpawnTile --> "player" GameObject
+SpawnTile --> "groundToSpawn" GameObject
+SpawnTile --> "coinPrefab" GameObject
+@enduml

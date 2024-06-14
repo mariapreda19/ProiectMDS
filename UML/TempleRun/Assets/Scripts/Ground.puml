@@ -1,0 +1,15 @@
+@startuml
+class SpawnTile {
+    + maxDistanceFromPlayer : float = 0.5f
+    + distanceBetweenTiles : float = 5.0f
+    + randomValue : float = 0.7f
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- SpawnTile
+SpawnTile --> "tileToSpawn" GameObject
+SpawnTile --> "referenceObject" GameObject
+SpawnTile --> "player" GameObject
+SpawnTile --> "groundToSpawn" GameObject
+SpawnTile --> "coinPrefab" GameObject
+@enduml

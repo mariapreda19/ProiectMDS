@@ -1,0 +1,10 @@
+@startuml
+class Player {
+    + updateMoney(ammount:int) : void
+    + getMoney() : int
+    Start() : void
+    Update() : void
+    checkDeath() : void
+}
+MonoBehaviour <|-- Player
+@enduml

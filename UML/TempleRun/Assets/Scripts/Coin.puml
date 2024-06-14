@@ -1,0 +1,8 @@
+@startuml
+class Coin {
+    + turnSpeed : float = 90f
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- Coin
+@enduml

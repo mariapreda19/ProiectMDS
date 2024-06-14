@@ -1,0 +1,17 @@
+@startuml
+class GameManager {
+    + setGameOver(val:bool) : void
+    + UpdateMoney(amount:int) : void
+    + UpdateScore(amount:float) : void
+    Start() : void
+    PauseGame() : void
+    ResumeGame() : void
+    Update() : void
+    FixedUpdate() : void
+    + Restart() : void
+}
+MonoBehaviour <|-- GameManager
+GameManager --> "moneyText" Text
+GameManager --> "scoreText" Text
+GameManager --> "instance" GameManager
+@enduml
