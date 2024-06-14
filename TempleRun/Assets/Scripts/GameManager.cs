@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -51,6 +52,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private TMP_InputField userName;
+    [SerializeField]
+    private Cinemachine.CinemachineVirtualCamera virtualCamera;
+    [SerializeField]
+    private SpawnTile spawnTile;
+    [SerializeField]
+    private Player player;
     
     public void setPlayerName(){
         Player.setName((string)userName.text);
@@ -60,10 +67,20 @@ public class GameManager : MonoBehaviour
         Song.clip = Clips[DropDownSong.value];
         Song.volume = 0.1f;
     }
-    // public void setSkin(){
-    //     PrefabUtility.ConvertToPrefabInstance(Character, Skins[DropDownSkin.value], PrefabUtility., InteractionMode.UserAction);
-    //     PrefabUtility.ReplacePrefabAssetOfPrefabInstance(Character, Skins[DropDownSkin.value], InteractionMode.UserAction );
-    // }
+    public void setSkin(){
+        Vector3 currentPosition = Character.transform.position;
+        Quaternion currentRotation = Character.transform.rotation;
+        Transform parentTransform = Character.transform.parent;
+        Destroy(Character);
+        Character = Instantiate(Skins[DropDownSkin.value], currentPosition, currentRotation, parentTransform);
+        virtualCamera.LookAt = Character.GetComponent<Transform>();
+        virtualCamera.Follow = Character.GetComponent<Transform>();
+        movement = Character.GetComponent<PlayerMovement>();
+        player = Character.GetComponent<Player>();
+        player.setPlayerMovement(movement);
+        spawnTile.changePlayer(Character);
+
+    }
 
     public void setRunningSpeed(){
         runningSpeed = runningSpeeds[DropDownDifficulty.value];

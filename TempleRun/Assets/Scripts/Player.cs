@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
         if(val != "")
             playerName = val;
     }
+    public void setPlayerMovement(PlayerMovement val){
+        playerMovement = val;
+    }
 
     public static string getName(){
         return playerName;

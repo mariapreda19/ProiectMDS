@@ -26,6 +26,9 @@ public class SpawnTile : MonoBehaviour
     private Vector3 direction, mainDirection = new Vector3(0, 0, 1), otherDirection = new Vector3(1, 0, 0);
     private float coinSpawnRate = 0.5f;
 
+    public void changePlayer(GameObject p){
+        player = p;
+    }
 
     void Start()
     {
