@@ -41,6 +41,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0) {
+            myCharacterController.SimpleMove(new Vector3(0f,0f,0f));
+
+            Vector3 forwardMovement1 = Time.deltaTime * runningSpeed * transform.forward;
+            Vector3 horizontalMovement1 = Time.deltaTime * movingSpeed * horizontalInput * transform.right;
+            myCharacterController.Move(forwardMovement1 + horizontalMovement1);
+
+            return;
+        }
         // discrete movement
         turnLeft = Input.GetKeyDown(KeyCode.A);
         turnRight = Input.GetKeyDown(KeyCode.D);
