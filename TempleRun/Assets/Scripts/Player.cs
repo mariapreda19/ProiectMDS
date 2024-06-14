@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     private static int money = 0;
     private static float score = 0;
     private static string playerName = "New Player";
+    [SerializeField]
+    private PlayerMovement playerMovement;
 
     public static void setName(string val){
         //Debug.Log(val);
@@ -46,6 +48,10 @@ public class Player : MonoBehaviour
         if(other.gameObject.GetComponent<ScorePowerUp>() != null)
         {
             GameManager.instance.UpdateScore(200);
+        }
+        if(other.gameObject.GetComponent<SlowDownPowerUp>() != null)
+        {
+            playerMovement.slowdown();
         }
     }
 
