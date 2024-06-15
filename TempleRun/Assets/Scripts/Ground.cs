@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnTile : MonoBehaviour
@@ -16,6 +15,7 @@ public class SpawnTile : MonoBehaviour
     
     public GameObject SlowDownPrefab;
     private float SlowDownSpawnRate = 0.05f;
+    public GameObject obstaclePrefab;
 
     public float maxDistanceFromPlayer = 0.5f;
     public float distanceBetweenTiles = 5.0f;
@@ -29,6 +29,7 @@ public class SpawnTile : MonoBehaviour
     public void changePlayer(GameObject p){
         player = p;
     }
+    private float obstacleSpawnRate = 0.1f;
 
     void Start()
     {
@@ -60,13 +61,17 @@ public class SpawnTile : MonoBehaviour
 
     private void SpawnTileAndManageCoinsAndPowerUps()
     {
-            Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
-            GameObject temp = Instantiate(tileToSpawn, spawnPos, Quaternion.identity);
-            tiles.Add(temp);
-            SpawnCoins(temp.GetComponent<Collider>());
+        Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
+        GameObject temp = Instantiate(tileToSpawn, spawnPos, Quaternion.identity);
+        tiles.Add(temp);
+        SpawnCoins(temp.GetComponent<Collider>());
+        if (Random.Range(0.0f, 1.0f) <= obstacleSpawnRate)
+        {
+            SpawnObstacle(temp.GetComponent<Collider>());
+        }
             SpawnScorePowerUp(temp.GetComponent<Collider>());
             SpawnSlowDown(temp.GetComponent<Collider>());
-            previousTilePosition = spawnPos;
+        previousTilePosition = spawnPos;
     }
 
     private void SpawnSlowDown(Collider collider)
@@ -101,6 +106,16 @@ public class SpawnTile : MonoBehaviour
         }
     }
 
+    private void SpawnObstacle(Collider collider)
+    {
+        GameObject temp = Instantiate(obstaclePrefab, collider.transform);
+        temp.transform.position = GetRandomPointInCollider(collider);
+        if (Random.Range(0.0f, 1.0f) <= 0.5f) // 50% chance for rotation
+        {
+            temp.transform.Rotate(0, 90, 0); // Rotate by 90 degrees around Y axis
+        }
+    }
+
     private Vector3 GetRandomPointInCollider(Collider collider)
     {
         Vector3 point = new Vector3(
@@ -115,7 +130,6 @@ public class SpawnTile : MonoBehaviour
     {
         for (int i = 0; i < tiles.Count; i++)
         {
-            
             if (Vector3.Distance(player.transform.position, tiles[i].transform.position) > maxDistanceFromPlayer)
             {
                 Destroy(tiles[i]);

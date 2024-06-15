@@ -164,8 +164,6 @@ public class GameManager : MonoBehaviour
             PauseGame();
             gameOverCanvas.SetActive(true);
         }
-    }
-    void FixedUpdate(){
         UpdateScore(10 * Time.deltaTime);
     }
     public void StartGame(){
