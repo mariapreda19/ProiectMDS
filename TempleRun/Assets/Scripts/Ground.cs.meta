@@ -3,7 +3,13 @@ guid: 52f59bf92be276149ab3c4950cf04940
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tileToSpawn: {instanceID: 0}
+  - referenceObject: {instanceID: 0}
+  - player: {instanceID: 0}
+  - groundToSpawn: {instanceID: 0}
+  - coinPrefab: {instanceID: 0}
+  - obstaclePrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
