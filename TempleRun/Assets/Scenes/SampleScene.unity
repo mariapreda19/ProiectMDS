@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1032,7 +1032,7 @@ MonoBehaviour:
   player: {fileID: 1310942186}
   groundToSpawn: {fileID: 0}
   coinPrefab: {fileID: 1011108785562528787, guid: a892e37565e9d814ebd07bc458c62c7b, type: 3}
-  obstaclePrefab: {fileID: 0}
+  obstaclePrefab: {fileID: 2551759207985870767, guid: 2a3938a7dc8afd14c8a1c444ed19fab4, type: 3}
   maxDistanceFromPlayer: 100
   distanceBetweenTiles: 5
   randomValue: 0.7
