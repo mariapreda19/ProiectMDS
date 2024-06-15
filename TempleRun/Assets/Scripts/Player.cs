@@ -22,6 +22,11 @@ public class Player : MonoBehaviour
             //Debug.Log(money);
             GameManager.instance.UpdateMoney(1);
         }
+        else if (other.gameObject.GetComponent<Obstacle>() != null) {
+            Debug.Log("hit");
+            GameManager.instance.setGameOver(true);
+            
+        }
     }
 
     // Start is called before the first frame update

@@ -340,6 +340,7 @@
 "Assets/Scripts/Coin.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/Ground.cs"
+"Assets/Scripts/Obstacle.cs"
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/PlayerMovement.cs"
 -langversion:9.0
