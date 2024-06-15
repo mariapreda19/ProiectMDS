@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private string previousKey = "";
     private float horizontalInput;
     private float runningSpeed = 7.0f;
+    private float slowdownSpeed = 5.0f;
     private float movingSpeed = 10.0f;
     public float jumpSpeed = 10.0f; // Adjust as needed
     public float gravity = 9.81f;
@@ -19,6 +22,23 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController myCharacterController;
     private Animator myAnimator;
+    private bool isSlowedDown = false;
+
+    public void setSpeed(float val){
+        this.runningSpeed = val;
+    }
+    public void slowdown(){
+        float temp = this.runningSpeed; //keep the previous runningSpeed so we know to what to set it back
+        if(!isSlowedDown){ //only slow down if the player is not under this effect already
+            setSpeed(slowdownSpeed);
+            isSlowedDown = true; //effect has been applied
+            Task.Delay(10000).ContinueWith(_ => { //10 s duration for slowdown effect
+                setSpeed(temp); //reverse effect
+                isSlowedDown = false; //not slowed down anymore
+            });
+        }
+        
+    }
 
     void Start()
     {

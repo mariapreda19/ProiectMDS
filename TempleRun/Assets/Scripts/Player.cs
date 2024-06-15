@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int money = 0;
+    [SerializeField]
 
-    public void updateMoney(int ammount)
-    {
-        money += ammount;
+    private static int money = 0;
+    private static float score = 0;
+    private static string playerName = "New Player";
+    [SerializeField]
+    private PlayerMovement playerMovement;
+
+    public static void setName(string val){
+        //Debug.Log(val);
+        if(val != "")
+            playerName = val;
     }
-    public int getMoney()
+    public void setPlayerMovement(PlayerMovement val){
+        playerMovement = val;
+    }
+
+    public static string getName(){
+        return playerName;
+    }
+
+    public static int getMoney()
     {
         return money;
+    }
+    public static float getScore()
+    {
+        return score;
+    }
+
+    public static void UpdateMoney(int amount) {
+        money += amount;
+    }
+    public static void UpdateScore(float amount) {
+        score += amount;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -22,10 +48,13 @@ public class Player : MonoBehaviour
             //Debug.Log(money);
             GameManager.instance.UpdateMoney(1);
         }
-        else if (other.gameObject.GetComponent<Obstacle>() != null) {
-            Debug.Log("hit");
-            GameManager.instance.setGameOver(true);
-            
+        if(other.gameObject.GetComponent<ScorePowerUp>() != null)
+        {
+            GameManager.instance.UpdateScore(200);
+        }
+        if(other.gameObject.GetComponent<SlowDownPowerUp>() != null)
+        {
+            playerMovement.slowdown();
         }
     }
 
