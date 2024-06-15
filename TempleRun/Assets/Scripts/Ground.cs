@@ -17,10 +17,11 @@ public class SpawnTile : MonoBehaviour
     public GameObject SlowDownPrefab;
     private float SlowDownSpawnRate = 0.05f;
 
+    public GameObject obstaclePrefab;
     public float maxDistanceFromPlayer = 0.5f;
     public float distanceBetweenTiles = 5.0f;
     public float randomValue = 0.7f;
-
+    public float obstacleSpawnRate = 0.1f;
     private List<GameObject> tiles = new List<GameObject>();
     private Vector3 previousTilePosition;
     private Vector3 direction, mainDirection = new Vector3(0, 0, 1), otherDirection = new Vector3(1, 0, 0);
@@ -29,6 +30,17 @@ public class SpawnTile : MonoBehaviour
     public void changePlayer(GameObject p){
         player = p;
     }
+
+    private void SpawnObstacle(Collider collider)
+    {
+        GameObject temp = Instantiate(obstaclePrefab, collider.transform);
+        temp.transform.position = GetRandomPointInCollider(collider);
+        if (Random.Range(0.0f, 1.0f) <= 0.5f) // 50% chance for rotation
+        {
+            temp.transform.Rotate(0, 90, 0); // Rotate by 90 degrees around Y axis
+        }
+    }
+
 
     void Start()
     {
@@ -66,6 +78,10 @@ public class SpawnTile : MonoBehaviour
             SpawnCoins(temp.GetComponent<Collider>());
             SpawnScorePowerUp(temp.GetComponent<Collider>());
             SpawnSlowDown(temp.GetComponent<Collider>());
+            if (Random.Range(0.0f, 1.0f) <= obstacleSpawnRate)
+            {
+                SpawnObstacle(temp.GetComponent<Collider>());
+            }
             previousTilePosition = spawnPos;
     }
 

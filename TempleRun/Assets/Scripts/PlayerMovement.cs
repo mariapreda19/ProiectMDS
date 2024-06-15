@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private float runningSpeed = 7.0f;
     private float slowdownSpeed = 5.0f;
     private float movingSpeed = 10.0f;
-    public float jumpSpeed = 8.0f; // Adjust as needed
+    public float jumpSpeed = 10.0f; // Adjust as needed
+    float gravity = 9.81f;
     private CharacterController myCharacterController;
     private Animator myAnimator;
     private bool isSlowedDown = false;
@@ -41,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        bool isGrounded = myCharacterController.isGrounded;
         if (Time.timeScale == 0) {
             myCharacterController.SimpleMove(new Vector3(0f,0f,0f));
 

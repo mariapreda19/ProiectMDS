@@ -56,6 +56,9 @@ public class Player : MonoBehaviour
         {
             playerMovement.slowdown();
         }
+        else if (other.gameObject.GetComponent<Obstacle>() != null) {
+            GameManager.instance.setGameOver(true);            
+        }
     }
 
     // Start is called before the first frame update
