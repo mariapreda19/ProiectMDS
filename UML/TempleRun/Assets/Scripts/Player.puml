@@ -1,7 +1,12 @@
 @startuml
 class Player {
-    + updateMoney(ammount:int) : void
-    + getMoney() : int
+    + {static} setName(val:string) : void
+    + setPlayerMovement(val:PlayerMovement) : void
+    + {static} getName() : string
+    + {static} getMoney() : int
+    + {static} getScore() : float
+    + {static} UpdateMoney(amount:int) : void
+    + {static} UpdateScore(amount:float) : void
     Start() : void
     Update() : void
     checkDeath() : void

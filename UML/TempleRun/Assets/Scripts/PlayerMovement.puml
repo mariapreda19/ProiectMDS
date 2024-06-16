@@ -1,8 +1,10 @@
 @startuml
 class PlayerMovement {
-    + jumpSpeed : float = 8.0f
+    + jumpSpeed : float = 10.0f
+    + setSpeed(val:float) : void
+    + getSpeed() : float
+    + slowdown() : void
     Start() : void
-    FixedUpdate() : void
     Update() : void
 }
 MonoBehaviour <|-- PlayerMovement

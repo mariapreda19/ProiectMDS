@@ -3,6 +3,8 @@ class SpawnTile {
     + maxDistanceFromPlayer : float = 0.5f
     + distanceBetweenTiles : float = 5.0f
     + randomValue : float = 0.7f
+    + obstacleSpawnRate : float = 0.1f
+    + changePlayer(p:GameObject) : void
     Start() : void
     Update() : void
 }
@@ -12,4 +14,7 @@ SpawnTile --> "referenceObject" GameObject
 SpawnTile --> "player" GameObject
 SpawnTile --> "groundToSpawn" GameObject
 SpawnTile --> "coinPrefab" GameObject
+SpawnTile --> "PowerUpScorePrefab" GameObject
+SpawnTile --> "SlowDownPrefab" GameObject
+SpawnTile --> "obstaclePrefab" GameObject
 @enduml

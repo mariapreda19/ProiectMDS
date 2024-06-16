@@ -1,33 +1,53 @@
 @startuml
+class ScorePowerUp {
+    + turnSpeed : float = 90f
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- ScorePowerUp
 class Player {
-    + updateMoney(ammount:int) : void
-    + getMoney() : int
+    + {static} setName(val:string) : void
+    + setPlayerMovement(val:PlayerMovement) : void
+    + {static} getName() : string
+    + {static} getMoney() : int
+    + {static} getScore() : float
+    + {static} UpdateMoney(amount:int) : void
+    + {static} UpdateScore(amount:float) : void
     Start() : void
     Update() : void
     checkDeath() : void
 }
 MonoBehaviour <|-- Player
 class PlayerMovement {
-    + jumpSpeed : float = 8.0f
+    + jumpSpeed : float = 10.0f
+    + setSpeed(val:float) : void
+    + getSpeed() : float
+    + slowdown() : void
     Start() : void
-    FixedUpdate() : void
     Update() : void
 }
 MonoBehaviour <|-- PlayerMovement
 class GameManager {
+    + setPlayerName() : void
+    + setSong() : void
+    + setSkin() : void
+    + setRunningSpeed() : void
     + setGameOver(val:bool) : void
     + UpdateMoney(amount:int) : void
     + UpdateScore(amount:float) : void
+    + BuyLife() : void
     Start() : void
     PauseGame() : void
     ResumeGame() : void
     Update() : void
     FixedUpdate() : void
+    + StartGame() : void
     + Restart() : void
 }
 MonoBehaviour <|-- GameManager
 GameManager --> "moneyText" Text
 GameManager --> "scoreText" Text
+GameManager --> "playerNameText" Text
 GameManager --> "instance" GameManager
 class Coin {
     + turnSpeed : float = 90f
@@ -39,6 +59,8 @@ class SpawnTile {
     + maxDistanceFromPlayer : float = 0.5f
     + distanceBetweenTiles : float = 5.0f
     + randomValue : float = 0.7f
+    + obstacleSpawnRate : float = 0.1f
+    + changePlayer(p:GameObject) : void
     Start() : void
     Update() : void
 }
@@ -48,4 +70,17 @@ SpawnTile --> "referenceObject" GameObject
 SpawnTile --> "player" GameObject
 SpawnTile --> "groundToSpawn" GameObject
 SpawnTile --> "coinPrefab" GameObject
+SpawnTile --> "PowerUpScorePrefab" GameObject
+SpawnTile --> "SlowDownPrefab" GameObject
+SpawnTile --> "obstaclePrefab" GameObject
+class Obstacle {
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- Obstacle
+class SlowDownPowerUp {
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- SlowDownPowerUp
 @enduml

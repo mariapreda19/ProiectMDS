@@ -1,0 +1,7 @@
+@startuml
+class Obstacle {
+    Start() : void
+    Update() : void
+}
+MonoBehaviour <|-- Obstacle
+@enduml

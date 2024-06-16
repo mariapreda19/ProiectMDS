@@ -1,17 +1,24 @@
 @startuml
 class GameManager {
+    + setPlayerName() : void
+    + setSong() : void
+    + setSkin() : void
+    + setRunningSpeed() : void
     + setGameOver(val:bool) : void
     + UpdateMoney(amount:int) : void
     + UpdateScore(amount:float) : void
+    + BuyLife() : void
     Start() : void
     PauseGame() : void
     ResumeGame() : void
     Update() : void
     FixedUpdate() : void
+    + StartGame() : void
     + Restart() : void
 }
 MonoBehaviour <|-- GameManager
 GameManager --> "moneyText" Text
 GameManager --> "scoreText" Text
+GameManager --> "playerNameText" Text
 GameManager --> "instance" GameManager
 @enduml
