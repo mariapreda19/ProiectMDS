@@ -20,3 +20,12 @@
 
 ## Backlog
 <a href="https://github.com/users/mariapreda19/projects/3" target="_blank">Aici.</a>
+
+## UML
+
+![UML Diagram](UML/include.svg)
+
+## Design patterns
+
+Tot proiectul este realizat in Unity cu ajutorul limbajului C#. Astfel, fiecare clasa implementata ilustreaza **sablonul arhitectural Start - Update** de la Unity.
+
