@@ -10,7 +10,6 @@
 * Ca utilizator, vreau sa am mai multe vieti, ca sa pot continua de unde am ramas, de un numar finit de ori.
 * Ca utilizator, vreau sa aleg dintre mai multe tipuri de personaje, cu care sa joc.
 * Ca utilizator, pot avea mai multe superputeri pe care sa le colectez pe parcursul jocului.
-* Ca utilizator, vreau sa am posibilitatea de a primi un quiz atunci cand pierd, pentru a putea sa continui jocul.
 * Ca utilizator, vreau sa am un joc optimizat corect, ca sa pot sa ma joc de pe calculatoare mai putin performante.
 * Ca utilizator, vreau sa am un user interface simplu si intuitiv, ca sa pot naviga in cadrul aplicatiei.
 * Ca utilizator, vreau sa am mai multe tipuri de obstacole, pentru a nu deveni repetitiv.
