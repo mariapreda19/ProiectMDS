@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
         this.runningSpeed = val;
     }
 
+    public float getSpeed(){
+        return runningSpeed;
+    }
+
     public void slowdown(){
         float temp = this.runningSpeed; //keep the previous runningSpeed so we know to what to set it back
         if(!isSlowedDown){ //only slow down if the player is not under this effect already

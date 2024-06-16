@@ -11,9 +11,10 @@ using UnityEditor.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
     private int currentMoney = 0;
     private float currentScore = 0f;
-    private float highScore = 0f;
+    private static float highScore = 0f;
     private bool gameOver = false;
     public Text moneyText;
     public Text scoreText;
@@ -71,11 +72,13 @@ public class GameManager : MonoBehaviour
         Vector3 currentPosition = Character.transform.position;
         Quaternion currentRotation = Character.transform.rotation;
         Transform parentTransform = Character.transform.parent;
+        float currentCharacterRunningSpeed = movement.getSpeed();
         Destroy(Character);
         Character = Instantiate(Skins[DropDownSkin.value], currentPosition, currentRotation, parentTransform);
         virtualCamera.LookAt = Character.GetComponent<Transform>();
         virtualCamera.Follow = Character.GetComponent<Transform>();
         movement = Character.GetComponent<PlayerMovement>();
+        movement.setSpeed(currentCharacterRunningSpeed);
         player = Character.GetComponent<Player>();
         player.setPlayerMovement(movement);
         spawnTile.changePlayer(Character);
@@ -84,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     public void setRunningSpeed(){
         runningSpeed = runningSpeeds[DropDownDifficulty.value];
-            movement.setSpeed(runningSpeed);
+        movement.setSpeed(runningSpeed);
         if(DropDownDifficulty.value == 0){
             Song.pitch = 1.0f;
         }
@@ -113,7 +116,6 @@ public class GameManager : MonoBehaviour
     {
         currentMoney += amount;
         moneyText.text = "Money: " + Player.getMoney().ToString();
-        //UpdateScore(amount * 5);
     }
 
     public void UpdateScore(float amount)
@@ -122,13 +124,13 @@ public class GameManager : MonoBehaviour
         Player.UpdateScore(amount);
         if(currentScore > highScore)
             highScore = currentScore;
-        //scoreText.text = "Score: " + (int)currentScore;// + " High Score: " + highScore.ToString();
-        scoreText.text = "Score: " + (int)Player.getScore();
+        scoreText.text = "Score: " + (int)currentScore + "\nHigh Score: " + (int)highScore;
+
     }
 
     public void BuyLife()
     {
-        if(Player.getMoney() >= 3)
+        if(Player.getMoney() >= 3) //this should be 100, but for demonstration purposes it's 3
         {
             UpdateMoney(-3);
             Player.UpdateMoney(-3);
@@ -146,9 +148,6 @@ public class GameManager : MonoBehaviour
         mainMenuCanvas.SetActive(true);
         UpdateMoney(0);
         playerNameText.text = Player.getName();
-        //playerMesh = Skins[1];
-
-        //Player.UpdateScore(-Player.getScore());
     }
     void PauseGame(){
         Time.timeScale = 0;
@@ -171,7 +170,6 @@ public class GameManager : MonoBehaviour
     public void StartGame(){
         mainMenuCanvas.SetActive(false);
         ResumeGame();
-        //Player.UpdateScore(-Player.getScore());
     }
     public void Restart(){
         SceneManager.LoadScene("SampleScene");
