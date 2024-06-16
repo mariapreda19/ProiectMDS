@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private bool turnLeft, turnRight, roll = false, jump = false, moveLeft, moveRight;
+    public bool turnLeft, turnRight, roll = false, jump = false, moveLeft, moveRight;
     private string previousKey = "";
     private float horizontalInput;
-    private float runningSpeed = 7.0f;
-    private float slowdownSpeed = 5.0f;
-    private float movingSpeed = 10.0f;
+    public float runningSpeed = 7.0f; // public for tests
+    public float slowdownSpeed = 5.0f;
+    public float movingSpeed = 10.0f; // public for tests
     public float jumpSpeed = 10.0f; // Adjust as needed
     private float gravity = 9.81f;
     private CharacterController myCharacterController;
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
     }
 
-    void Update()
+    public void Update() // public for editor tests
     {
         if (Time.timeScale == 0) {
             myCharacterController.SimpleMove(Vector3.zero);
