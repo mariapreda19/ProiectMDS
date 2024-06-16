@@ -33,3 +33,7 @@ Tot proiectul este realizat in Unity cu ajutorul limbajului C#. Astfel, fiecare 
 
 Aplicatia este validata prin teste automate utilizand **Unity Test Runner**
 
+## AI Tool
+Proiectul a foss realizat inclusiv cu ajutorul instrumentelor de AI:
+* ChatGPT
+* GitHub Copilot
