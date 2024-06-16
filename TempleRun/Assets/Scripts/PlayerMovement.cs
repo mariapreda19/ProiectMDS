@@ -6,21 +6,23 @@ using System.Threading.Tasks;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private bool turnLeft, turnRight, roll = false, jump=false, moveLeft, moveRight;
+    private bool turnLeft, turnRight, roll = false, jump = false, moveLeft, moveRight;
     private string previousKey = "";
     private float horizontalInput;
     private float runningSpeed = 7.0f;
     private float slowdownSpeed = 5.0f;
     private float movingSpeed = 10.0f;
     public float jumpSpeed = 10.0f; // Adjust as needed
-    float gravity = 9.81f;
+    private float gravity = 9.81f;
     private CharacterController myCharacterController;
     private Animator myAnimator;
     private bool isSlowedDown = false;
+    private float verticalVelocity = 0; // Added to handle vertical movement
 
     public void setSpeed(float val){
         this.runningSpeed = val;
     }
+
     public void slowdown(){
         float temp = this.runningSpeed; //keep the previous runningSpeed so we know to what to set it back
         if(!isSlowedDown){ //only slow down if the player is not under this effect already
@@ -31,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
                 isSlowedDown = false; //not slowed down anymore
             });
         }
-        
     }
 
     void Start()
@@ -42,9 +43,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        bool isGrounded = myCharacterController.isGrounded;
         if (Time.timeScale == 0) {
-            myCharacterController.SimpleMove(new Vector3(0f,0f,0f));
+            myCharacterController.SimpleMove(Vector3.zero);
 
             Vector3 forwardMovement1 = Time.deltaTime * runningSpeed * transform.forward;
             Vector3 horizontalMovement1 = Time.deltaTime * movingSpeed * horizontalInput * transform.right;
@@ -52,16 +52,17 @@ public class PlayerMovement : MonoBehaviour
 
             return;
         }
-        // discrete movement
+
+        // Discrete movement
         turnLeft = Input.GetKeyDown(KeyCode.A);
         turnRight = Input.GetKeyDown(KeyCode.D);
-
         jump = Input.GetKeyDown(KeyCode.Space);
         roll = Input.GetKeyDown(KeyCode.R);
         
-        // continuous movement
+        // Continuous movement
         horizontalInput = Input.GetAxis("Horizontal");
-        // not letting the player turn back
+
+        // Not letting the player turn back
         if (turnLeft && previousKey != "left") {
             transform.Rotate(new Vector3(0f, -90f, 0f));
             previousKey = "left";
@@ -70,23 +71,38 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(new Vector3(0f, 90f, 0f));
             previousKey = "right";
         }
-        else if (jump) {
-            myAnimator.Play("Jump");
-            // code for jumping
-        }
-        else if (roll) {
-            myAnimator.Play("Roll");
-        }
-        myCharacterController.SimpleMove(new Vector3(0f,0f,0f));
-        //myCharacterController.Move(speed * Time.deltaTime * (transform.forward + movement));
 
+        // Custom ground check to prevent falling between tiles
+        bool isGrounded = CheckIfGrounded();
+
+        // Handle jump
+        if (isGrounded && jump) {
+            verticalVelocity = jumpSpeed;
+            myAnimator.Play("Jump");
+        } else if (!isGrounded) {
+            verticalVelocity -= gravity * Time.deltaTime;
+        } else {
+            verticalVelocity = 0;
+        }
+
+        // Apply vertical movement (jumping and gravity)
+        Vector3 verticalMovement = new Vector3(0, verticalVelocity, 0);
+        myCharacterController.Move(verticalMovement * Time.deltaTime);
+
+        // Move the player horizontally only
         Vector3 forwardMovement = Time.deltaTime * runningSpeed * transform.forward;
         Vector3 horizontalMovement = Time.deltaTime * movingSpeed * horizontalInput * transform.right;
         myCharacterController.Move(forwardMovement + horizontalMovement);
-        
-
     }
 
+    private bool CheckIfGrounded() {
+        // Perform a raycast slightly below the character to check if grounded
+        RaycastHit hit;
+        float rayDistance = 0.1f; // Distance for ground check
 
-    
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, myCharacterController.height / 2 + rayDistance)) {
+            return true;
+        }
+        return false;
+    }
 }
