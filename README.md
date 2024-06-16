@@ -29,3 +29,7 @@
 
 Tot proiectul este realizat in Unity cu ajutorul limbajului C#. Astfel, fiecare clasa implementata ilustreaza **sablonul arhitectural Start - Update** de la Unity.
 
+## Teste
+
+Aplicatia este validata prin teste automate utilizand **Unity Test Runner**
+
