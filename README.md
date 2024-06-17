@@ -34,10 +34,14 @@ Tot proiectul este realizat in Unity cu ajutorul limbajului C#. Astfel, fiecare 
 Aplicatia este validata prin teste automate utilizand **Unity Test Runner**
 
 ## AI Tool
-Proiectul a foss realizat inclusiv cu ajutorul instrumentelor de AI:
+Proiectul a fost realizat inclusiv cu ajutorul instrumentelor de AI:
 * ChatGPT
 * GitHub Copilot
 
 ## Referinte
 * https://github.com/Delt06/unity-generate-uml
 * https://www.youtube.com/watch?v=PDYB32qAsLU&t=382s
+* https://www.youtube.com/watch?v=cRc0QTYBeBE
+* https://www.youtube.com/watch?v=517eJql_zd4
+* https://www.youtube.com/watch?v=-ffFpWtS4Cg
+* https://www.youtube.com/watch?v=jvUvUkYeE3k&t=6995s
