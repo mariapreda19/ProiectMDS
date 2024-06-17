@@ -16,6 +16,8 @@ public class Coin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //functie scrisa de chatpgt pentru rotatia monedei:
+        // prompt: "Make the coin rotate"
         transform.Rotate(0,0,turnSpeed*Time.deltaTime);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SpawnTile : MonoBehaviour
 {
+    // game objects
     public GameObject tileToSpawn;
     public GameObject referenceObject;
     [SerializeField]
@@ -24,6 +25,8 @@ public class SpawnTile : MonoBehaviour
     public float obstacleSpawnRate = 0.1f;
     private List<GameObject> tiles = new List<GameObject>();
     private Vector3 previousTilePosition;
+
+    // initializam directia de mers a player-ului ca fiind inainte
     private Vector3 direction, mainDirection = new Vector3(0, 0, 1), otherDirection = new Vector3(1, 0, 0);
     private float coinSpawnRate = 0.5f;
 
@@ -49,6 +52,8 @@ public class SpawnTile : MonoBehaviour
 
     void Update()
     {
+        // daca distanta dintre player si ultimul tile < 2 ori dist max de la player
+        // generam un nou tile si gestionam monedele si power-up-urile
         if (Vector3.Distance(player.transform.position, previousTilePosition) <= maxDistanceFromPlayer * 2)
         {
             float random = Random.Range(0.0f, 1.0f);
@@ -64,6 +69,8 @@ public class SpawnTile : MonoBehaviour
 
     private void ChangeDirection()
     {
+        // schimbam directia de mers a player-ului
+        // si setam directia de generare a urmatorului tile
         Vector3 temp = mainDirection;
         mainDirection = otherDirection;
         otherDirection = temp;
@@ -72,6 +79,8 @@ public class SpawnTile : MonoBehaviour
 
     private void SpawnTileAndManageCoinsAndPowerUps()
     {
+            // generam un nou tile si gestionam monedele si power-up-urile
+            // acest bloc de cod a fost corectat de chatpgt
             Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
             GameObject temp = Instantiate(tileToSpawn, spawnPos, Quaternion.identity);
             tiles.Add(temp);
@@ -87,6 +96,7 @@ public class SpawnTile : MonoBehaviour
 
     private void SpawnSlowDown(Collider collider)
     {
+        // daca SlowDownSpawnRate > val random, generam un power-up de tip slow down
         float choice = Random.Range(0.0f, 1.0f);
         if (choice <= SlowDownSpawnRate)
         {
@@ -96,6 +106,7 @@ public class SpawnTile : MonoBehaviour
     }
     private void SpawnScorePowerUp(Collider collider)
     {
+        // daca powerUpScoreSpawnRate > val random, generam un power-up de tip score
         float choice = Random.Range(0.0f, 1.0f);
         if (choice <= powerUpScoreSpawnRate)
         {
@@ -106,11 +117,13 @@ public class SpawnTile : MonoBehaviour
 
     private void SpawnCoins(Collider collider)
     {
+        // daca coinSpawnRate < val random, generam monede
         float choice = Random.Range(0.0f, 1.0f);
         if (choice >= coinSpawnRate)
         {
             for (int i = 0; i < Random.Range(1, 3); i++)
             {
+                // generam monede in collider
                 GameObject temp = Instantiate(coinPrefab, collider.transform);
                 temp.transform.position = GetRandomPointInCollider(collider);
             }
@@ -131,6 +144,8 @@ public class SpawnTile : MonoBehaviour
     {
         for (int i = 0; i < tiles.Count; i++)
         {
+            // pentru fiecare tile, daca distanta dintre player si tile > maxDistanceFromPlayer
+            // il stergem
             
             if (Vector3.Distance(player.transform.position, tiles[i].transform.position) > maxDistanceFromPlayer)
             {

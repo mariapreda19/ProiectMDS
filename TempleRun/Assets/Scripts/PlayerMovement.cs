@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void slowdown(){
+        // block generat de chatpgt, in care se pot observa si modificarile aduse in comentarii
         float temp = this.runningSpeed; //keep the previous runningSpeed so we know to what to set it back
         if(!isSlowedDown){ //only slow down if the player is not under this effect already
             setSpeed(slowdownSpeed);
@@ -45,11 +46,12 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
     }
 
-    public void Update() // public for editor tests
+    public void Update()
     {
         if (Time.timeScale == 0) {
             myCharacterController.SimpleMove(Vector3.zero);
 
+            // calculam directia de mers a player-ului
             Vector3 forwardMovement1 = Time.deltaTime * runningSpeed * transform.forward;
             Vector3 horizontalMovement1 = Time.deltaTime * movingSpeed * horizontalInput * transform.right;
             myCharacterController.Move(forwardMovement1 + horizontalMovement1);

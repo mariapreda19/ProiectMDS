@@ -42,20 +42,24 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        // colectare monede
         if(other.gameObject.GetComponent<Coin>() != null)
         {
             money++;
             //Debug.Log(money);
             GameManager.instance.UpdateMoney(1);
         }
+        // colectare power-up-uri pentru scor
         if(other.gameObject.GetComponent<ScorePowerUp>() != null)
         {
             GameManager.instance.UpdateScore(200);
         }
+        // colectare power-up-uri pentru slow down
         if(other.gameObject.GetComponent<SlowDownPowerUp>() != null)
         {
             playerMovement.slowdown();
         }
+        // lovire de un obstacol
         else if (other.gameObject.GetComponent<Obstacle>() != null) {
             GameManager.instance.setGameOver(true);            
         }
@@ -76,6 +80,5 @@ public class Player : MonoBehaviour
         if(transform.position.y <= 1.5f){
             GameManager.instance.setGameOver(true);
         }
-        //You can add multiple death causes here...
     }
 }
