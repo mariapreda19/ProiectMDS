@@ -37,3 +37,6 @@ Aplicatia este validata prin teste automate utilizand **Unity Test Runner**
 Proiectul a foss realizat inclusiv cu ajutorul instrumentelor de AI:
 * ChatGPT
 * GitHub Copilot
+
+## Referinte
+* https://github.com/Delt06/unity-generate-uml
