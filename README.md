@@ -40,3 +40,4 @@ Proiectul a foss realizat inclusiv cu ajutorul instrumentelor de AI:
 
 ## Referinte
 * https://github.com/Delt06/unity-generate-uml
+* https://www.youtube.com/watch?v=PDYB32qAsLU&t=382s
