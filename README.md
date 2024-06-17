@@ -38,6 +38,22 @@ Proiectul a fost realizat inclusiv cu ajutorul instrumentelor de AI:
 * ChatGPT
 * GitHub Copilot
 
+Cateva exemple de folosire ale ChatGPT:
+
+<p>
+  <img src="Screenshots-AI/Screenshot (767)1.png" width="400" height="50%" alt="">
+  <img src="Screenshots-AI/Screenshot (768)1.png" width="400" height="50%" alt="">
+</p>
+
+<p>
+  <img src="Screenshots-AI/Screenshot (772)1.png" width="400" height="50%" alt="">
+  <img src="Screenshots-AI/Screenshot (773)1.png" width="400" height="50%" alt="">
+</p>
+
+
+## Demo
+Demo-ul poate fi gasit aici: https://unibucro0-my.sharepoint.com/:v:/g/personal/andrei-george_nicolaescu_unibuc_ro/EWSciQzTnuhHsolBmjfFjisBf7flufAHLx0YTN7J77JdEw?referrer=Teams.TEAMS-ELECTRON&referrerScenario=MeetingChicletGetLink.view.view
+
 ## Referinte
 * https://github.com/Delt06/unity-generate-uml
 * https://www.youtube.com/watch?v=PDYB32qAsLU&t=382s
